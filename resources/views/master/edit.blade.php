@@ -10,12 +10,12 @@
                <form method="POST" action="{{route('master.update', $master)}}">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" name="master_name" class="form-control" value="{{$master->name}}">
+                        <input type="text" name="master_name" class="form-control" value="{{old('master_name', $master->name)}}">
                         <small class="form-text text-muted">Masters name</small>
                     </div>
                     <div class="form-group">
                         <label>Surname</label>
-                        <input type="text" name="master_surname" class="form-control" value="{{$master->surname}}">
+                        <input type="text" name="master_surname" class="form-control" value="{{old('master_surname', $master->surname)}}">
                         <small class="form-text text-muted">Masters surname</small>
                     </div>
                      @csrf

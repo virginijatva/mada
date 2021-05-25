@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Master;
 use Illuminate\Http\Request;
+use Validator;
 
 class MasterController extends Controller
 {
@@ -36,6 +37,19 @@ class MasterController extends Controller
      */
     public function store(Request $request)
     {
+        //nepamirsti virsuje: use Validator;
+        $validator = Validator::make($request->all(),
+       [
+           'master_name' => ['required', 'min:3', 'max:64'],
+           'master_surname' => ['required', 'min:3', 'max:64'],
+       ],
+       );
+
+       if ($validator->fails()) {  //tikriname, ar validatorius nesu feilino
+           $request->flash();
+           return redirect()->back()->withErrors($validator); //jei sufeilino, griztam
+       }
+
         $master = new Master;
         $master->name = $request->master_name;
         $master->surname = $request->master_surname;
@@ -74,6 +88,22 @@ class MasterController extends Controller
      */
     public function update(Request $request, Master $master)
     {
+        $validator = Validator::make($request->all(),
+        [
+            'master_name' => ['required', 'min:3', 'max:64'],
+            'master_surname' => ['required', 'min:3', 'max:64'],
+        ],
+        [
+            //galima apsirasyti savo pranesimus tokiu budu, jei nenorime defaultiniu:
+            'master_name.min' => 'Master name has to be longer than 2 characters'
+        ]
+        );
+ 
+        if ($validator->fails()) {  //tikriname, ar validatorius nesu feilino
+            $request->flash();
+            return redirect()->back()->withErrors($validator); //jei sufeilino, griztam
+        }
+
         $master->name = $request->master_name;
         $master->surname = $request->master_surname;
         $master->save();
