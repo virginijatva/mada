@@ -40,7 +40,7 @@ class MasterController extends Controller
         $master->name = $request->master_name;
         $master->surname = $request->master_surname;
         $master->save();
-        return redirect()->route('master.index');
+        return redirect()->route('master.index')->with('success_message', 'New Master has been added to the list.');
     }
 
     /**
@@ -77,7 +77,7 @@ class MasterController extends Controller
         $master->name = $request->master_name;
         $master->surname = $request->master_surname;
         $master->save();
-        return redirect()->route('master.index');
+        return redirect()->route('master.index')->with('success_message', 'New Master has been editted successfully.');;
     }
 
     /**
@@ -90,9 +90,10 @@ class MasterController extends Controller
     {
 
         if ($master->masterOutfits->count()) {
+            return redirect()->back()->with('info_message', 'This master cannot be deleted');
             return '<h1>You cannot delete this master because he has some outfits to complete</h1>';
         }
         $master->delete();
-        return redirect()->route('master.index');
+        return redirect()->route('master.index')->with('success_message', 'Master has been deleted from the list');;
     }
 }

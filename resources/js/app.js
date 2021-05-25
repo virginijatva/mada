@@ -30,3 +30,9 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    if(document.querySelector('#summernote')){
+        $('#summernote').summernote();
+    }
+});
