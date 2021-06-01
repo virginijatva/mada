@@ -68,7 +68,7 @@
                         <li class="list-group-item">
                             <div class="list-bin">
                                 <div class="list-title">
-                                    Nothing is there
+                                    Nothing is here
                                 </div>
                             </div>
                         </li>
