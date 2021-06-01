@@ -7,40 +7,28 @@
             <div class="card">
                 <div class="card-header">
                     <h1>Masters</h1>
+
+                    <fieldset class="sort">
+                        <legend>Sort by:</legend>
+                        <div class="inputs">
+                            <label for="_1">name</label><input type="radio" name="sort" value="size" id="_1" checked>
+                            <label for="_2">date</label><input type="radio" name="sort" value="date" id="_2">
+                            <span class="border"></span>
+                            <label for="_3">up</label><input type="radio" name="order" value="asc" id="_3" checked>
+                            <label for="_4">down</label><input type="radio" name="order" value="desc" id="_4" </div>
+                    </fieldset>
+                    <button type="button" class="btn btn-info">Sort</button>
                 </div>
-
-                <div class="card-body">
-                    <ul class="list-group">
-                        @foreach ($masters as $master)
-                        <li class="list-group-item">
-                            <div class="list-bin">
-
-                                <div class="list-title">
-                                    {{$master->name}} {{$master->surname}}
-                                </div>
-
-                                <div class="list-btn">
-                                    <a href="{{route('master.edit', $master)}}" class="btn btn-info">
-                                        Edit
-                                    </a>
-                                    <form method="POST" action="{{route('master.destroy', $master)}}">
-                                        @csrf
-                                        <button type="submit" class="btn btn-danger">DELETE</button>
-                                    </form>
-                                </div>
-
-                            </div>
-                            <div class="list-img">
-                                @if ($master->portrait)
-
-                                <img src="{{$master->portrait}}" alt="{{$master->name}} {{$master->surname}}">
-                                @else
-                                <img src="{{asset('portraits/noPhotoAvailable.jpg')}}" alt="{{$master->name}} {{$master->surname}}">
-                                @endif
-                            </div>
-                        </li>
-                        @endforeach
-                    </ul>
+                <div class="card-body" id="master-list">
+                    {{-- list --}}
+                    <div class="center-loader">
+                        <div class="lds-ring">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

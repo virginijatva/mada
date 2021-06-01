@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Master;
 use Illuminate\Http\Request;
 use Validator;
+use View;
 
 class MasterController extends Controller
 {
@@ -19,6 +20,48 @@ class MasterController extends Controller
         return view('master.index', ['masters' => $masters]);
     }
 
+    public function list(Request $request)
+    {
+
+        if ($request->sort) {
+            if ($request->sort == 'default' || $request->sort == 'name') {
+                if ($request->order == 'default' || $request->order == 'asc') {
+                    $masters = Master::orderBy('name')->get();
+                } 
+                else if ($request->order == 'desc') {
+                    $masters = Master::orderBy('name', 'desc')->get();
+                } 
+                else {
+                    $masters = Master::all(); //neturetu nutikti
+                }
+            } 
+            else if ($request->sort == 'date') {
+                if ($request->order == 'default' || $request->order == 'asc') {
+                    $masters = Master::orderBy('updated_at')->get();
+                } 
+                else if ($request->order == 'desc') {
+                    $masters = Master::orderBy('updated_at', 'desc')->get();
+                } 
+                else {
+                    $masters = Master::all(); //neturetu nutikti
+                }
+            } 
+            else {
+                $masters = Master::all();
+            }
+        } 
+        else {
+            $masters = Master::all();
+        }
+    
+
+        $listRender = View::make('master.list')->with(['masters' => $masters])->render();
+
+        return response()->json([
+            'helo' => 'Hello',
+            'listHTML' => $listRender,
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -43,7 +86,7 @@ class MasterController extends Controller
             [
                 'master_name' => ['required', 'min:3', 'max:64'],
                 'master_surname' => ['required', 'min:3', 'max:64'],
-                'master_portrait' => ['sometimes','mimes:jpg, gif, png'],
+                'master_portrait' => ['sometimes', 'mimes:jpg, gif, png'],
             ],
         );
 
@@ -116,7 +159,7 @@ class MasterController extends Controller
             [
                 'master_name' => ['required', 'min:3', 'max:64'],
                 'master_surname' => ['required', 'min:3', 'max:64'],
-                'master_portrait' => ['sometimes','mimes:jpg, gif, png'],
+                'master_portrait' => ['sometimes', 'mimes:jpg, gif, png'],
             ],
             [
                 //galima apsirasyti savo pranesimus tokiu budu, jei nenorime defaultiniu:
@@ -131,11 +174,11 @@ class MasterController extends Controller
 
         if ($request->has('master_portrait')) { //tikrinam, ar uploadinom portreta
 
-            if($master->portrait){
+            if ($master->portrait) {
                 $imageName = explode('/', $master->portrait);
                 $imageName = array_pop($imageName);
-                $path = public_path() . '/portraits/'. $imageName;
-                if(file_exists($path)){
+                $path = public_path() . '/portraits/' . $imageName;
+                if (file_exists($path)) {
                     unlink($path);
                 }
             }
@@ -172,14 +215,14 @@ class MasterController extends Controller
             return '<h1>You cannot delete this master because he has some outfits to complete</h1>';
         }
 
-            if($master->portrait){
-                $imageName = explode('/', $master->portrait);
-                $imageName = array_pop($imageName);
-                $path = public_path() . '/portraits/'. $imageName;
-                if(file_exists($path)){
-                    unlink($path);
-                }
+        if ($master->portrait) {
+            $imageName = explode('/', $master->portrait);
+            $imageName = array_pop($imageName);
+            $path = public_path() . '/portraits/' . $imageName;
+            if (file_exists($path)) {
+                unlink($path);
             }
+        }
         $master->delete();
         return redirect()->route('master.index')->with('success_message', 'Master has been deleted from the list');;
     }

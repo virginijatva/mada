@@ -1840,11 +1840,56 @@ module.exports = {
   \*****************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
+var _require = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"),
+    identity = _require.identity;
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.addEventListener('DOMContentLoaded', function (event) {
   if (document.querySelector('#summernote')) {
     $('#summernote').summernote();
+  }
+});
+window.addEventListener('DOMContentLoaded', function () {
+  if (document.querySelector('#master-list')) {
+    axios.get(masterListURL).then(function (response) {
+      console.log(response);
+      document.querySelector('#master-list').innerHTML = response.data.listHTML;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+    var button = document.querySelector('.card-header').querySelector('button');
+    button.addEventListener('click', function () {
+      console.log('KLIK');
+      var sortName = document.querySelector('[value=size]');
+      var sortDate = document.querySelector('[value=date]');
+      var orderAsc = document.querySelector('[value=asc]');
+      var orderDesc = document.querySelector('[value=desc]');
+      var sort, order;
+
+      if (sortName.checked) {
+        sort = 'name';
+      } else if (sortDate.checked) {
+        sort = 'date';
+      } else {
+        sort = 'default';
+      }
+
+      if (orderAsc.checked) {
+        order = 'asc';
+      } else if (orderDesc.checked) {
+        order = 'desc';
+      } else {
+        order = 'default';
+      }
+
+      axios.get(masterListURL + '?sort=' + sort + '&order=' + order).then(function (response) {
+        console.log(response);
+        document.querySelector('#master-list').innerHTML = response.data.listHTML;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    });
   }
 });
 

@@ -18,8 +18,11 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script>
+    const masterListURL = "{{route('master.list')}}";
+    </script>
 </head>
-<body>
+<body style="background-image: url('{{ asset('img/sew.jpg')}}'); background-position: center; background-repeat: no-repeat;">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">

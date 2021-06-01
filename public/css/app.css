@@ -844,69 +844,6 @@
   cursor: pointer;
 }
 
-.list-bin {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.list-bin .list-title {
-  font-style: italic;
-}
-.list-bin .list-title span {
-  display: inline-block;
-  font-size: 120%;
-  font-style: normal;
-  padding-left: 15px;
-}
-.list-bin .list-btn {
-  padding: 0;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-.list-bin .list-btn * {
-  margin: 0 5px;
-}
-
-fieldset.sort {
-  border: 1px solid gray;
-  padding: 5px 20px;
-  margin: 15px 0;
-}
-fieldset.sort legend {
-  width: auto;
-  display: inline-block;
-  padding: 0 5px;
-  font-size: 14px;
-}
-fieldset.sort .inputs {
-  padding: 0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-fieldset.sort .inputs * {
-  margin: 0 2px;
-}
-fieldset.sort span.border {
-  display: inline-block;
-  width: 1px;
-  background-color: gray;
-  height: 30px;
-}
-
-.list-img {
-  max-height: 150px;
-}
-.list-img img {
-  height: 150px;
-  width: auto;
-}
-
-body {
-  background-image: url(/../sew.jpg);
-}
-
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -10907,5 +10844,122 @@ h3 {
   .table .thead-dark th {
     color: inherit;
     border-color: #dee2e6;
+  }
+}
+.list-bin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.list-bin .list-title {
+  font-style: italic;
+}
+.list-bin .list-title span {
+  display: inline-block;
+  font-size: 120%;
+  font-style: normal;
+  padding-left: 15px;
+}
+.list-bin .list-btn {
+  padding: 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.list-bin .list-btn * {
+  margin: 0 5px;
+}
+
+fieldset.sort {
+  border: 1px solid gray;
+  padding: 5px 20px;
+  margin: 15px 0;
+}
+fieldset.sort legend {
+  width: auto;
+  display: inline-block;
+  padding: 0 5px;
+  font-size: 14px;
+}
+fieldset.sort .inputs {
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+fieldset.sort .inputs * {
+  margin: 0 2px;
+}
+fieldset.sort span.border {
+  display: inline-block;
+  width: 1px;
+  background-color: gray;
+  height: 30px;
+}
+
+.list-img {
+  max-height: 150px;
+}
+.list-img img {
+  height: 150px;
+  width: auto;
+}
+
+.center-loader {
+  display: flex;
+  justify-content: center;
+}
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #7acf52;
+  border-radius: 50%;
+  -webkit-animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+          animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: olivedrab transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+  -webkit-animation-delay: -0.45s;
+          animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+  -webkit-animation-delay: -0.3s;
+          animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+  -webkit-animation-delay: -0.15s;
+          animation-delay: -0.15s;
+}
+
+@-webkit-keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
