@@ -17,6 +17,7 @@ class CreateMastersTable extends Migration
             $table->id();// id: int(11)
             $table->string('name', 64); // name varchar(64)           
             $table->string('surname', 64); // surname varchar(64)
+            $table->string('portrait', 200)->nullable();
             $table->timestamps();
         });
     }

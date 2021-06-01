@@ -895,6 +895,18 @@ fieldset.sort span.border {
   height: 30px;
 }
 
+.list-img {
+  max-height: 150px;
+}
+.list-img img {
+  height: 150px;
+  width: auto;
+}
+
+body {
+  background-image: url(/../sew.jpg);
+}
+
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors

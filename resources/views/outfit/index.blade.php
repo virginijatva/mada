@@ -44,12 +44,15 @@
                             <div class="list-bin">
 
                                 <div class="list-title">
-                                    {{$outfit->type}} {{$outfit->outfitMaster->name}} {{$outfit->outfitMaster->surname}}
-                                    <span>{{$outfit->type}}</span>
+                                    {{$outfit->outfitMaster->name}} {{$outfit->outfitMaster->surname}}
+                                    <span style="color: {{$outfit->color}};">{{$outfit->type}}</span>
                                     <span>{{$outfit->size}}</span>
                                 </div>
 
                                 <div class="list-btn">
+                                    <a href="{{route('outfit.show',$outfit)}}" class="btn btn-info">
+                                        Show
+                                    </a>
                                     <a href="{{route('outfit.edit',$outfit)}}" class="btn btn-info">
                                         Edit
                                     </a>

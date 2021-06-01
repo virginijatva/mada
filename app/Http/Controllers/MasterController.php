@@ -38,19 +38,42 @@ class MasterController extends Controller
     public function store(Request $request)
     {
         //nepamirsti virsuje: use Validator;
-        $validator = Validator::make($request->all(),
-       [
-           'master_name' => ['required', 'min:3', 'max:64'],
-           'master_surname' => ['required', 'min:3', 'max:64'],
-       ],
-       );
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'master_name' => ['required', 'min:3', 'max:64'],
+                'master_surname' => ['required', 'min:3', 'max:64'],
+                'master_portrait' => ['sometimes','mimes:jpg, gif, png'],
+            ],
+        );
 
-       if ($validator->fails()) {  //tikriname, ar validatorius nesu feilino
-           $request->flash();
-           return redirect()->back()->withErrors($validator); //jei sufeilino, griztam
-       }
+        if ($validator->fails()) {  //tikriname, ar validatorius nesu feilino
+            $request->flash();
+            return redirect()->back()->withErrors($validator); //jei sufeilino, griztam
+        }
 
         $master = new Master;
+
+        if ($request->has('master_portrait')) { //tikrinam, ar uploadinom portreta
+
+            $portrait = $request->file('master_portrait'); //jei taip, is request pasiimam ta file ir laravel mum sukuria jo objekta
+
+            $imageName =
+                $request->master_name . '-' .
+                $request->master_surname . '-' .
+                time() . '.' .
+                $portrait->getClientOriginalExtension();
+
+            $path = public_path() . '/portraits/'; //nustatom serverio vidini kelia
+
+            $url = asset('portraits/' . $imageName); // url narsyklei isorinis kelias
+
+            $portrait->move($path, $imageName); //is serverio tmp folderio perkeliam file'a i public folder
+
+            $master->portrait = $url; //israugom url duombazej
+        }
+
+
         $master->name = $request->master_name;
         $master->surname = $request->master_surname;
         $master->save();
@@ -88,20 +111,45 @@ class MasterController extends Controller
      */
     public function update(Request $request, Master $master)
     {
-        $validator = Validator::make($request->all(),
-        [
-            'master_name' => ['required', 'min:3', 'max:64'],
-            'master_surname' => ['required', 'min:3', 'max:64'],
-        ],
-        [
-            //galima apsirasyti savo pranesimus tokiu budu, jei nenorime defaultiniu:
-            'master_name.min' => 'Master name has to be longer than 2 characters'
-        ]
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'master_name' => ['required', 'min:3', 'max:64'],
+                'master_surname' => ['required', 'min:3', 'max:64'],
+                'master_portrait' => ['sometimes','mimes:jpg, gif, png'],
+            ],
+            [
+                //galima apsirasyti savo pranesimus tokiu budu, jei nenorime defaultiniu:
+                'master_name.min' => 'Master name has to be longer than 2 characters'
+            ]
         );
- 
+
         if ($validator->fails()) {  //tikriname, ar validatorius nesu feilino
             $request->flash();
             return redirect()->back()->withErrors($validator); //jei sufeilino, griztam
+        }
+
+        if ($request->has('master_portrait')) { //tikrinam, ar uploadinom portreta
+
+            if($master->portrait){
+                $imageName = explode('/', $master->portrait);
+                $imageName = array_pop($imageName);
+                $path = public_path() . '/portraits/'. $imageName;
+                if(file_exists($path)){
+                    unlink($path);
+                }
+            }
+
+            $portrait = $request->file('master_portrait'); //jei taip, is request pasiimam ta file ir laravel mum sukuria jo objekta
+            $imageName =
+                $request->master_name . '-' .
+                $request->master_surname . '-' .
+                time() . '.' .
+                $portrait->getClientOriginalExtension();
+            $path = public_path() . '/portraits/'; //nustatom serverio vidini kelia
+            $url = asset('portraits/' . $imageName); // url narsyklei isorinis kelias
+            $portrait->move($path, $imageName); //is serverio tmp folderio perkeliam file'a i public folder
+            $master->portrait = $url; //israugom url duombazej
         }
 
         $master->name = $request->master_name;
@@ -123,6 +171,15 @@ class MasterController extends Controller
             return redirect()->back()->with('info_message', 'This master cannot be deleted');
             return '<h1>You cannot delete this master because he has some outfits to complete</h1>';
         }
+
+            if($master->portrait){
+                $imageName = explode('/', $master->portrait);
+                $imageName = array_pop($imageName);
+                $path = public_path() . '/portraits/'. $imageName;
+                if(file_exists($path)){
+                    unlink($path);
+                }
+            }
         $master->delete();
         return redirect()->route('master.index')->with('success_message', 'Master has been deleted from the list');;
     }

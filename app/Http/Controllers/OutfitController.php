@@ -6,6 +6,7 @@ use App\Models\Master;
 use App\Models\Outfit;
 use Illuminate\Http\Request;
 use Validator;
+use PDF;
 
 class OutfitController extends Controller
 {
@@ -23,16 +24,15 @@ class OutfitController extends Controller
     {
         $masters = Master::all();
 
-        if($request->master_id){
+        if ($request->master_id) {
             $outfits = Outfit::where('master_id', $request->master_id)->get();
             $master_id = $request->master_id;
-        }
-        else{
+        } else {
             $outfits = Outfit::all();
             $master_id = 0;
         }
 
-        
+
         if ($request->sort) {
             if ('asc' == $request->order) {
                 if ('size' == $request->sort) {
@@ -58,14 +58,16 @@ class OutfitController extends Controller
             }
         }
 
-        return view('outfit.index',
+        return view(
+            'outfit.index',
             [
                 'outfits' => $outfits,
                 'masters' => $masters,
                 'order' => $order ?? '',
                 'sort' => $sort ?? '',
                 'master_id' => $master_id,
-            ]);
+            ]
+        );
     }
 
     /**
@@ -125,7 +127,7 @@ class OutfitController extends Controller
      */
     public function show(Outfit $outfit)
     {
-        //
+        return view('outfit.show', ['outfit' => $outfit]);
     }
 
     /**
@@ -187,5 +189,11 @@ class OutfitController extends Controller
     {
         $outfit->delete();
         return redirect()->route('outfit.index')->with('success_message', 'The Outfit is deleted.');;
+    }
+
+    public function pdf(Outfit $outfit)
+    {
+        $pdf = PDF::loadView('outfit.pdf', ['outfit' => $outfit]);
+        return $pdf->download('outfit-id'.$outfit->id.'.pdf');
     }
 }

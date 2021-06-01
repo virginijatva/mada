@@ -41,7 +41,7 @@
                         </div>
 
                         @csrf
-                        <button type="submit">Make</button>
+                        <button type="submit" class="btn btn-info mt-4">Make</button>
                     </form>
                 </div>
             </div>

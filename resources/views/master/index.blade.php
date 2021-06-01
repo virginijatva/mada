@@ -28,7 +28,15 @@
                                         <button type="submit" class="btn btn-danger">DELETE</button>
                                     </form>
                                 </div>
-                                
+
+                            </div>
+                            <div class="list-img">
+                                @if ($master->portrait)
+
+                                <img src="{{$master->portrait}}" alt="{{$master->name}} {{$master->surname}}">
+                                @else
+                                <img src="{{asset('portraits/noPhotoAvailable.jpg')}}" alt="{{$master->name}} {{$master->surname}}">
+                                @endif
                             </div>
                         </li>
                         @endforeach
