@@ -6,7 +6,7 @@
         <div class="col-md-9">
             <div class="card">
                 <div class="card-header">
-                    <h1>Edit Master</h1>
+                    <h1 class="page-title">Edit Master</h1>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{route('master.update', $master)}}" enctype="multipart/form-data">

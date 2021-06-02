@@ -34,6 +34,7 @@ Route::group(['prefix' => 'masters'], function(){
 
     //JS
     Route::get('list', [MasterController::class, 'list'])->name('master.list');
+    Route::get('search', [MasterController::class, 'search'])->name('master.search');
  });
 
  Route::group(['prefix' => 'outfits'], function(){

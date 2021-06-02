@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Make new outfit</div>
+                <div class="card-header"><h1 class="page-title">Make new outfit</h1></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{route('outfit.store')}}">

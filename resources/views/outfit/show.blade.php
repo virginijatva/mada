@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Outfit</div>
+                <div class="card-header"><h1 class="page-title">Outfit</h1></div>
                 <div class="card-body">
                     <ul class="list-group">
                         <li class="list-group-item">Type: {{$outfit->type}}</li>

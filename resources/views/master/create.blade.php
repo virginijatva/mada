@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Add new Master</div>
+                <div class="card-header"><h1 class="page-title">Add new Master</h1></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{route('master.store')}}" enctype="multipart/form-data">

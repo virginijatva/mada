@@ -1851,6 +1851,19 @@ window.addEventListener('DOMContentLoaded', function (event) {
   }
 });
 window.addEventListener('DOMContentLoaded', function () {
+  if (document.querySelector('#search-field')) {
+    var searchField = document.querySelector('#search-field');
+    searchField.addEventListener('input', function () {
+      console.log(searchField.value);
+      axios.get(masterSearchURL + '?s=' + searchField.value).then(function (response) {
+        console.log(response);
+        document.querySelector('#master-list').innerHTML = response.data.listHTML;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    });
+  }
+
   if (document.querySelector('#master-list')) {
     axios.get(masterListURL).then(function (response) {
       console.log(response);

@@ -22,6 +22,10 @@
     }
 }
 
+h1.page-title{
+  color:#DB7093;
+}
+
 fieldset.sort {
     border: 1px solid gray;
     padding: 5px 20px;
@@ -99,3 +103,17 @@ fieldset.sort {
       transform: rotate(360deg);
     }
   }
+
+  body {
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.paginator-outfit{
+  padding: 20px 20px 10px 10px;
+  background-color: pink;
+  margin-top: 15px;
+  border-radius: 12px;
+}

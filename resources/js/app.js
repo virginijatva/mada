@@ -10,6 +10,24 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 
 window.addEventListener('DOMContentLoaded', () => {
+    if (document.querySelector('#search-field')) {
+        const searchField = document.querySelector('#search-field');
+
+        searchField.addEventListener('input', () =>{
+            console.log(searchField.value);
+            axios.get(masterSearchURL + '?s=' + searchField.value)
+            .then(function (response) {
+                console.log(response);
+                document.querySelector('#master-list').innerHTML = response.data.listHTML;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        })
+    }
+
+
+
     if (document.querySelector('#master-list')) {
 
         axios.get(masterListURL)

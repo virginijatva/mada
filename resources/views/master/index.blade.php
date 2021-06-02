@@ -6,8 +6,11 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h1>Masters</h1>
-
+                    <h1 class="page-title">Masters</h1>
+                    <fieldset class="sort">
+                    <legend>Search:</legend>
+                    <input type="text" id="search-field" placeholder="search">
+                    </fieldset>
                     <fieldset class="sort">
                         <legend>Sort by:</legend>
                         <div class="inputs">

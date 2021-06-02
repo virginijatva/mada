@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Lara fashion home</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -20,14 +20,16 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script>
     const masterListURL = "{{route('master.list')}}";
+    const masterSearchURL = "{{route('master.search')}}";
     </script>
 </head>
-<body style="background-image: url('{{ asset('img/sew.jpg')}}'); background-position: center; background-repeat: no-repeat;">
+<body style="background-image: url('{{ asset('img/sew1.jpg')}}')" >
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand" href="{{ url('/') }}" style="color: #C71585;">
+                  
+                    Lara fashion home
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
